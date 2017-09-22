@@ -1,4 +1,12 @@
 # web server
+node:
+    image: node:8
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - /source/huidashi:/source
+    ports:
+        - "8080:8080"
 nginx:
   image: nginx:latest
   ports:
@@ -40,11 +48,3 @@ redis:
   ports:
       # Allow client to access 3306
       - "6379:6379"
-node:
-    image: "node:8"
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - /source/huidashi:/source
-    expose:
-      - "8080"
