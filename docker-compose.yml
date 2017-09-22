@@ -45,3 +45,6 @@ node:
   image: node:8
   volumes:
       - /source/huidashi:/source
+  ports:
+        # Allow client to access 3306
+        - "8088:8088"
