@@ -9,14 +9,24 @@ MAINTAINER micooz <micooz@hotmail.com>
 # You can install php extensions using docker-php-ext-install
 ######
 
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+#RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
-RUN echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib" > /etc/apt/sources.list \
-    echo "deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list \
-    echo "deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
-    echo "deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
+#RUN echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib" > /etc/apt/sources.list \
+#    echo "deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list \
+#    echo "deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
+#    echo "deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
 
-RUN cat /etc/apt/sources.list.bak >> /etc/apt/sources.list
+#RUN cat /etc/apt/sources.list.bak >> /etc/apt/sources.list
+
+RUN echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib \
+         deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib \
+         deb http://mirrors.163.com/debian/ jessie-backports main non-free contrib \
+         deb-src http://mirrors.163.com/debian/ jessie main non-free contrib \
+         deb-src http://mirrors.163.com/debian/ jessie-updates main non-free contrib \
+         deb-src http://mirrors.163.com/debian/ jessie-backports main non-free contrib \
+         deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib \
+         deb-src http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib " \
+         > /etc/apt/sources.list
 
 
 RUN apt-get update
