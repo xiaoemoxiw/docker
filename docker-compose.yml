@@ -3,7 +3,6 @@ nginx:
   image: nginx:latest
   ports:
     - "80:80"
-    - "443:443"
   volumes:
     - /source/huidashi:/source
     # nginx configs
