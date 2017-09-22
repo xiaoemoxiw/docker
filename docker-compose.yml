@@ -42,9 +42,6 @@ redis:
       - "6379:6379"
 
 node:
-  image: node:8
+  image: node:latest
   volumes:
       - /source/huidashi:/source
-  ports:
-        # Allow client to access 3306
-        - "8088:8088"
