@@ -9,7 +9,7 @@ MAINTAINER micooz <micooz@hotmail.com>
 # You can install php extensions using docker-php-ext-install
 ######
 
-RUN echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib \
+RUN sudo echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib \
     deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib \
     deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib \
     deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" \
