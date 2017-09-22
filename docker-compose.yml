@@ -1,12 +1,4 @@
 # web server
-node:
-    image: node:8
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - /source/huidashi:/source
-    ports:
-        - "8080:8080"
 nginx:
   image: nginx:latest
   ports:
