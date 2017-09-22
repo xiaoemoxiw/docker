@@ -1,0 +1,48 @@
+# web server
+nginx:
+  image: nginx:latest
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - /source/huidashi:/source
+    # nginx configs
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+  links:
+    - fpm:__DOCKER_PHP_FPM__
+
+# php-fpm
+fpm:
+  build: ./php-fpm
+  ports:
+    - "9000"
+  volumes:
+    - /source/huidashi:/source
+    # Your php.ini
+    - ./php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
+  links:
+    - mysql:mysql
+
+# database
+mysql:
+  image: mysql:5.7
+  ports:
+    # Allow client to access 3306
+    - "3306:3306"
+  volumes:
+    # NOTE: your data will be stored in ./mysql
+    - ./mysql:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=hhddss1603
+
+redis:
+  image: redis:3
+  ports:
+      # Allow client to access 3306
+      - "6379:6379"
+
+node:
+  image: node:8
+  volumes:
+      - /source/huidashi:/source
