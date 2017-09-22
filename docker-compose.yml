@@ -40,8 +40,11 @@ redis:
   ports:
       # Allow client to access 3306
       - "6379:6379"
-
 node:
-  image: node:latest
-  volumes:
+    image: "node:8"
+    environment:
+      - NODE_ENV=production
+    volumes:
       - /source/huidashi:/source
+    expose:
+      - "8080"
