@@ -9,10 +9,14 @@ MAINTAINER micooz <micooz@hotmail.com>
 # You can install php extensions using docker-php-ext-install
 ######
 
-#RUN echo "deb http://mirrors.aliyuncs.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
-#    echo "deb http://mirrors.aliyuncs.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list \
-#    echo "deb-src http://mirrors.aliyuncs.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
-#    echo "deb-src http://mirrors.aliyuncs.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
+COPY /etc/apt/sources.list /etc/apt/sources.list.bak
+
+RUN echo "deb http://mirrors.aliyuncs.com/debian/ jessie main non-free contrib" > /etc/apt/sources.list \
+    echo "deb http://mirrors.aliyuncs.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list \
+    echo "deb-src http://mirrors.aliyuncs.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
+    echo "deb-src http://mirrors.aliyuncs.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
+
+RUN cat /etc/apt/sources.list.bak >> /etc/apt/sources.list
 
 
 RUN apt-get update
