@@ -9,6 +9,12 @@ MAINTAINER micooz <micooz@hotmail.com>
 # You can install php extensions using docker-php-ext-install
 ######
 
+RUN echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib \
+    deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib \
+    deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib \
+    deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" \
+    /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
