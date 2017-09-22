@@ -15,7 +15,7 @@ RUN echo "deb http://mirrors.aliyuncs.com/debian/ jessie main non-free contrib" 
     echo "deb-src http://mirrors.aliyuncs.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
 
 
-RUN apt-get update
+#RUN apt-get update
 RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
