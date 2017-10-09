@@ -40,3 +40,11 @@ redis:
   ports:
       # Allow client to access 3306
       - "6379:6379"
+
+jenkins:
+  image: jenkins:latest
+  ports:
+      - "8080:8080"
+      - "50000:50000"
+  volumes:
+      - ./jenkins:/var/jenkins_home
