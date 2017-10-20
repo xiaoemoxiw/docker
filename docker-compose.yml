@@ -32,6 +32,7 @@ mysql:
   volumes:
     # NOTE: your data will be stored in ./mysql
     - ./mysql:/var/lib/mysql
+    - ./my.cnf:/etc/mysql/conf.d/my.cnf
   environment:
     - MYSQL_ROOT_PASSWORD=hhddss1603
 
