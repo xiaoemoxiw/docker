@@ -50,6 +50,16 @@ redis:
       # Allow client to access 3306
       - "6379:6379"
 
+#node:
+#  image: node:8.9.3
+#  container_name: node
+#  working_dir:/source
+#  environment:
+#    - NODE_ENV=production
+#  volumes:
+#      - /Volumes/data/source:/source
+#  command: "npm start"
+
 #jenkins:
 #  image: jenkins:latest
 #  ports:

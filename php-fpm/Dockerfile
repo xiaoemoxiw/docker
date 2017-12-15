@@ -35,6 +35,7 @@ RUN apt-get install -y \
         libmcrypt-dev \
         libpng12-dev \
         wget \
+        vim \
         git \
         git-gui \
         zip \
@@ -52,17 +53,17 @@ RUN php composer-setup.php --install-dir=/usr/bin --filename=composer
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 #安装node
-#RUN wget https://npm.taobao.org/mirrors/node/v6.11.3/node-v6.11.3-linux-x64.tar.xz \
-#    && tar xvf node-v6.11.3-linux-x64.tar.xz \
-#    && mv node-v6.11.3-linux-x64 node \
-#    && echo export PATH="/opt/node/bin:$PATH" >> /etc/profile \
-#    && source /etc/profile \
-#    && npm install -g cnpm --registry=https://registry.npm.taobao.org
+RUN wget https://npm.taobao.org/mirrors/node/v8.9.0/node-v8.9.0-linux-x64.tar.xz \
+    && tar xf node-v8.9.0-linux-x64.tar.xz \
+    && mv node-v8.9.0-linux-x64 node \
+    && echo export PATH="/opt/node/bin:$PATH" >> /etc/profile \
+    && source /etc/profile \
+    && npm install -g cnpm --registry=https://registry.npm.taobao.org
 #    && ln -s /opt/node/bin/node /usr/bin/ \
 #    && ln -s /opt/node/bin/npm /usr/bin/ \
 #    && ln -s /opt/node/bin/gulp /usr/bin/ \
 #    && alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
 
 
-
+WORKDIR /source
 
