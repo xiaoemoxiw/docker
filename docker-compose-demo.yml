@@ -1,6 +1,7 @@
 # web server
 nginx:
   image: nginx:latest
+  container_name: nginx
   ports:
     - "80:80"
   volumes:
@@ -14,6 +15,7 @@ nginx:
 # php-fpm
 fpm:
   build: ./php-fpm
+  container_name: php
   ports:
     - "9000"
   volumes:
@@ -27,6 +29,7 @@ fpm:
 # database
 mysql:
   image: mysql:5.7
+  container_name: mysql
   ports:
     # Allow client to access 3306
     - "3306:3306"
@@ -39,6 +42,7 @@ mysql:
 
 redis:
   image: redis:3
+  container_name: redis
   command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
   volumes:
     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
