@@ -3,7 +3,7 @@
 ######
 
 FROM php:7.1.9-fpm
-MAINTAINER micooz <micooz@hotmail.com>
+MAINTAINER yuxuewen <8586826@qq.com>
 
 ######
 # You can install php extensions using docker-php-ext-install
@@ -52,12 +52,12 @@ RUN php composer-setup.php --install-dir=/usr/bin --filename=composer
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 #安装node
-RUN wget https://npm.taobao.org/mirrors/node/v6.11.3/node-v6.11.3-linux-x64.tar.xz \
-    && tar xvf node-v6.11.3-linux-x64.tar.xz \
-    && mv node-v6.11.3-linux-x64 node \
-    && echo export PATH="/opt/node/bin:$PATH" >> /etc/profile \
-    && source /etc/profile \
-    && npm install -g cnpm --registry=https://registry.npm.taobao.org
+#RUN wget https://npm.taobao.org/mirrors/node/v6.11.3/node-v6.11.3-linux-x64.tar.xz \
+#    && tar xvf node-v6.11.3-linux-x64.tar.xz \
+#    && mv node-v6.11.3-linux-x64 node \
+#    && echo export PATH="/opt/node/bin:$PATH" >> /etc/profile \
+#    && source /etc/profile \
+#    && npm install -g cnpm --registry=https://registry.npm.taobao.org
 #    && ln -s /opt/node/bin/node /usr/bin/ \
 #    && ln -s /opt/node/bin/npm /usr/bin/ \
 #    && ln -s /opt/node/bin/gulp /usr/bin/ \

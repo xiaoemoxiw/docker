@@ -4,7 +4,7 @@ nginx:
   ports:
     - "80:80"
   volumes:
-    - /source/huidashi:/source
+    - /Volumes/data/source:/source
     # nginx configs
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
@@ -17,11 +17,12 @@ fpm:
   ports:
     - "9000"
   volumes:
-    - /source/huidashi:/source
+    - /Volumes/data/source:/source
     # Your php.ini
     - ./php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
   links:
     - mysql:mysql
+    - redis:redis
 
 # database
 mysql:
@@ -34,21 +35,21 @@ mysql:
     - ./mysql:/var/lib/mysql
     - ./my.cnf:/etc/mysql/conf.d/my.cnf
   environment:
-    - MYSQL_ROOT_PASSWORD=hhddss1603
+    - MYSQL_ROOT_PASSWORD=mypassword
 
 redis:
   image: redis:3
-  command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword --bind 127.0.0.1
+  command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
   volumes:
     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
   ports:
       # Allow client to access 3306
       - "6379:6379"
 
-jenkins:
-  image: jenkins:latest
-  ports:
-      - "8080:8080"
-      - "50000:50000"
-  volumes:
-      - ./jenkins:/var/jenkins_home
+#jenkins:
+#  image: jenkins:latest
+#  ports:
+#      - "8080:8080"
+#      - "50000:50000"
+#  volumes:
+#      - ./jenkins:/var/jenkins_home
