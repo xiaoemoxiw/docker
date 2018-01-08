@@ -1,0 +1,2 @@
+* * * * * /usr/local/bin/php /source/follow_cloud/artisan schedule:run >> /dev/null 2>&1
+* * * * * echo 11122 >> /tmp/1.txt
