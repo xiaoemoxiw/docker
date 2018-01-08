@@ -43,9 +43,9 @@
 ###### 进入redis容器：exec redis
 ###### 进入nginx容器：exec nginx
 
-### 执行npm或者cnpm
+### 执行npm(cnpm)或者composer
 ###### 完成进入容器这个步骤以后，通过exec php 进入php容易
-###### 然后直接执行cnpm即可使用cnpm命令
+###### 然后直接执行cnpm或者composer即可
 
 
 
