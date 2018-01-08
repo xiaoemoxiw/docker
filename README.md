@@ -2,9 +2,15 @@
 #### Centos 
 ###### yum update 
 ###### yum install -y docker
+
+### docker-compose.yml
+###### 执行一下命令mv docker-compose-demo.yml docker-compose.yml
+
 ### nginx
 ###### 在nginx文件夹中执行mkdir conf.d
 ###### 然后执行cp nginx/demo_php_conf.d.conf nginx/conf.d，得到其中一个nginx的示例配置文件，这里可以配置无限多个站点，可以自定义nginx文件格式
+###### 增加一个端口，请在docker-compose.yml的nginx里面的ports中增加相应的端口
+###### 如增加一个8080端口，则增加一项[- "8080:8080"]
 
 ### php-fpm
 #### 定时任务：
@@ -18,8 +24,6 @@
 ###### --queue=beiweiyun 修改为要开启队列的名称
 ###### 具体参考laravel手册
 
-### docker-compose.yml
-###### 执行一下命令mv docker-compose-demo.yml docker-compose.yml
 
 ### 执行docker
 ###### 在docker-compose.yml所在目录，也就是docker代码的根目录，执行一下命令。
