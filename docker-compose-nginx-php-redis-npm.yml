@@ -48,6 +48,18 @@ redis:
   ports:
       - "6379:6379"
 
+node:
+  image: node:8.9.3
+  container_name: node
+  hostname: node
+  user: "node"
+  working_dir: /home/node/app
+  environment:
+    - NODE_ENV=production
+  volumes:
+    - /Volumes/data/source:/home/node/app
+  command: "npm run hot"
+
 #jenkins:
 #  image: jenkins:latest
 #  ports:

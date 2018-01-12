@@ -1,0 +1,61 @@
+# web server
+nginx:
+  image: nginx:latest
+  container_name: nginx
+  hostname: nginx
+  ports:
+    - "80:80"
+  volumes:
+    - /Volumes/data/source:/source
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+  links:
+    - fpm:__DOCKER_PHP_FPM__
+
+# php-fpm
+fpm:
+  image: registry.cn-shenzhen.aliyuncs.com/yxw-docker/php
+  container_name: php
+  hostname: php
+  ports:
+    - "9000"
+  links:
+    - mysql:mysql
+    - redis:redis
+  volumes:
+    - /Volumes/data/source:/source
+    - ./php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
+    - ./php-fpm/cron/laravel:/var/spool/cron/crontabs/laravel
+    - ./php-fpm/supervisor/program.conf:/etc/supervisor/conf.d/program.conf
+  command: supervisord -c /etc/supervisor/supervisord.conf
+
+# database
+mysql:
+  image: mysql:5.7
+  container_name: mysql
+  hostname: mysql
+  ports:
+    - "3306:3306"
+  volumes:
+    - ./mysql:/var/lib/mysql
+    - ./my.cnf:/etc/mysql/conf.d/my.cnf
+  environment:
+    - MYSQL_ROOT_PASSWORD=mypassword
+
+redis:
+  image: redis:3
+  container_name: redis
+  hostname: redis
+  command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
+  volumes:
+    - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+  ports:
+      - "6379:6379"
+
+#jenkins:
+#  image: jenkins:latest
+#  ports:
+#      - "8080:8080"
+#      - "50000:50000"
+#  volumes:
+#      - ./jenkins:/var/jenkins_home
