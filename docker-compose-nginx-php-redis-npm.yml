@@ -1,69 +1,71 @@
-# web server
-nginx:
-  image: nginx:latest
-  container_name: nginx
-  ports:
-    - "80:80"
-  volumes:
-    - /Volumes/data/source:/source
-    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
-  links:
-    - fpm:__DOCKER_PHP_FPM__
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /Volumes/data/source:/source
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+    links:
+      - fpm:__DOCKER_PHP_FPM__
 
-# php-fpm
-fpm:
-  image: registry.cn-shenzhen.aliyuncs.com/yxw-docker/php
-  container_name: php
-  ports:
-    - "9000"
-  links:
-    - mysql:mysql
+  # php-fpm
+  fpm:
+    image: registry.cn-shenzhen.aliyuncs.com/yxw-docker/php
+    container_name: php
+    ports:
+      - "9000"
+    links:
+      - mysql:mysql
+      - redis:redis
+    volumes:
+      - /Volumes/data/source:/source
+      - ./php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
+      - ./php-fpm/cron/laravel:/var/spool/cron/crontabs/laravel
+      - ./php-fpm/supervisor/program.conf:/etc/supervisor/conf.d/program.conf
+    command: supervisord -c /etc/supervisor/supervisord.conf
+
+  # database
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+
+  redis:
+    image: redis:3
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+        - "6379:6379"
+
+  node:
+    image: registry.cn-shenzhen.aliyuncs.com/yxw-docker/node8.9.3:latest
+    container_name: node
+    hostname: node
+    ports:
+    - "7001:7001"
+    working_dir: /source/lx-egg
+    links:
     - redis:redis
-  volumes:
-    - /Volumes/data/source:/source
-    - ./php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
-    - ./php-fpm/cron/laravel:/var/spool/cron/crontabs/laravel
-    - ./php-fpm/supervisor/program.conf:/etc/supervisor/conf.d/program.conf
-  command: supervisord -c /etc/supervisor/supervisord.conf
+    volumes:
+    - /source:/source
+    # >在字符串中折叠换行，| 保留换行符，这两个符号是YAML中字符串经常使用的符号
+    #  command:
+    #     - /bin/sh
+    #     - -c
+    #     - |
+    #     yarn install
+    #     pm2-runtime start ecosystem.config.js
+    command: ["/bin/sh", "-c", "yarn install && yarn dev"]
 
-# database
-mysql:
-  image: mysql:5.7
-  container_name: mysql
-  ports:
-    - "3306:3306"
-  volumes:
-    - ./mysql:/var/lib/mysql
-    - ./my.cnf:/etc/mysql/conf.d/my.cnf
-  environment:
-    - MYSQL_ROOT_PASSWORD=mypassword
-
-redis:
-  image: redis:3
-  container_name: redis
-  command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
-  volumes:
-    - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-  ports:
-      - "6379:6379"
-
-node:
-  image: node:8.9.3
-  container_name: node
-  hostname: node
-  user: "node"
-  working_dir: /home/node/app
-  environment:
-    - NODE_ENV=production
-  volumes:
-    - /Volumes/data/source:/home/node/app
-  command: "npm run hot"
-
-#jenkins:
-#  image: jenkins:latest
-#  ports:
-#      - "8080:8080"
-#      - "50000:50000"
-#  volumes:
-#      - ./jenkins:/var/jenkins_home

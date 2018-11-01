@@ -1,4 +1,3 @@
 .idea/
 .idea/workspace.xml
-nginx/conf.d
 docker-compose.yml
