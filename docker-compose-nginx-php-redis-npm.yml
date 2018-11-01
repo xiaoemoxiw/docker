@@ -10,7 +10,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
     links:
-      - fpm:__DOCKER_PHP_FPM__
+      - fpm:fpm
 
   # php-fpm
   fpm:
