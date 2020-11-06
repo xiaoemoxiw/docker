@@ -1,0 +1,24 @@
+version: '3'
+services:
+  # database
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+
+  redis:
+    image: redis:3
+    container_name: redis
+    hostname: redis
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+        - "6379:6379"
