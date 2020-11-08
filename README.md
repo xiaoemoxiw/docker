@@ -1,4 +1,6 @@
 #### 启动一个简单的开发环境
+* docker-compose安装
+> https://docs.docker.com/compose/install/
 
 * 启动mysql和redis
 ```bash
