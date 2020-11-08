@@ -11,13 +11,13 @@ services:
       - ./mysql:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
-      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_ROOT_PASSWORD=123zxc
 
   redis:
     image: redis:3
     container_name: redis
     hostname: redis
-    command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass 123zxc
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
