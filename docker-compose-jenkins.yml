@@ -2,8 +2,8 @@ version: '3'
 services:
   mysql:
     image: jenkinsci/blueocean:latest
-    container_name: mysql
-    hostname: mysql
+    container_name: jenkins
+    hostname: jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
