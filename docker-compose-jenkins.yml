@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mysql:
+    image: jenkinsci/blueocean:latest
+    container_name: mysql
+    hostname: mysql
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins:/var/jenkins_home
+
+
