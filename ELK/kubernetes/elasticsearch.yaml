@@ -1,0 +1,41 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+#  http:
+#    service:
+#      spec:
+#        type: LoadBalancer
+#    tls:
+#      selfSignedCertificate:
+#        subjectAltNames:
+#        - ip: 192.168.100.10
+#        - dns: dev10.dmai.com
+#      certificate:
+#        secretName: dev10-cert
+  version: 7.10.1
+  nodeSets:
+    - name: default
+      count: 1
+      config:
+        node.store.allow_mmap: false
+#      volumeClaimTemplates:
+#        - metadata:
+#            name: elasticsearch-data
+#          spec:
+#            accessModes:
+#              - ReadWriteOnce
+#            resources:
+#              requests:
+#                storage: 5Gi
+      volumeClaimTemplates:
+      - metadata:
+          name: elasticsearch-data
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+          storageClassName: standard
